@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"github.com/CSCoursework/tp-astar/astar"
+	"github.com/CSCoursework/tp-astar/visualise"
 )
 
 func main() {
@@ -21,5 +22,8 @@ func main() {
 	end := astar.Position{7, 6}
 
 	path := astar.Astar(maze, start, end)
+
+	visualise.Maze(maze, path)
+
 	fmt.Println(path)
 }

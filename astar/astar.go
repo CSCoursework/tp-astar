@@ -5,7 +5,7 @@ var mooreNeighbourhood = []Position{{0, -1}, {0, 1}, {-1, 0}, {1, 0}, {-1, -1}, 
 type Maze [][]bool
 type Position [2]int
 
-func (m Maze) getPosition(pos Position) bool {
+func (m Maze) GetPosition(pos Position) bool {
 	return m[pos[0]][pos[1]]
 }
 
@@ -27,6 +27,7 @@ func (n *node) equalTo(other *node) bool {
 	return n.position == other.position
 }
 
+// Astar returns a list of Positions that represent a path from a given start and end point in a given maze
 func Astar(maze Maze, start, end Position) []Position {
 
 	startNode := newNode(nil, start)
@@ -84,7 +85,7 @@ func Astar(maze Maze, start, end Position) []Position {
 			}
 
 			// make sure nodePosition isn't a wall
-			if maze.getPosition(nodePosition) {
+			if maze.GetPosition(nodePosition) {
 				continue
 			}
 
