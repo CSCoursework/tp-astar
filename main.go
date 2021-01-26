@@ -1,7 +1,10 @@
 package main
 
 import (
+	"bytes"
 	"fmt"
+	"io/ioutil"
+
 	"github.com/CSCoursework/tp-astar/astar"
 	"github.com/CSCoursework/tp-astar/visualise"
 )
@@ -22,8 +25,16 @@ func main() {
 	end := astar.Position{7, 6}
 
 	path := astar.Astar(maze, start, end)
+	fmt.Println("Found path:", path)
 
-	visualise.Maze(maze, path)
+	buf := new(bytes.Buffer)
+	visualise.Maze(maze, path, buf)
+	fmt.Println("Generated image")
 
-	fmt.Println(path)
+	err := ioutil.WriteFile("image.png", buf.Bytes(), 0644)
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println("Saved image")
+
 }
