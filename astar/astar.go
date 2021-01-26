@@ -39,7 +39,7 @@ func Astar(maze Maze, start, end Position) []Position {
 	)
 
 	for len(openList) > 0 {
-		// find the current node 
+		// find the current node
 		currentNode := openList[0]
 		currentIndex := 0
 		for index, item := range openList {
@@ -49,13 +49,11 @@ func Astar(maze Maze, start, end Position) []Position {
 			}
 		}
 
-		// remove the current node from the open list and add it to the closed list
-		{
-			// https://github.com/golang/go/wiki/SliceTricks#delete
-			copy(openList[currentIndex:], openList[currentIndex+1:])
-			openList[len(openList)-1] = nil
-			openList = openList[:len(openList)-1]
-		}
+		// remove the current node from the open list - https://github.com/golang/go/wiki/SliceTricks#delete
+		copy(openList[currentIndex:], openList[currentIndex+1:])
+		openList[len(openList)-1] = nil
+		openList = openList[:len(openList)-1]
+		// add it to the closed list
 		closedList = append(closedList, currentNode)
 
 		if currentNode.equalTo(endNode) { // found the target node
@@ -66,7 +64,7 @@ func Astar(maze Maze, start, end Position) []Position {
 				current = current.parent
 			}
 			// this crazy thing reverses path - https://stackoverflow.com/a/28058324
-			for i, j := 0, len(path) - 1; i < j; i, j = i + 1, j - 1 {
+			for i, j := 0, len(path)-1; i < j; i, j = i+1, j-1 {
 				path[i], path[j] = path[j], path[i]
 			}
 			return path
@@ -78,9 +76,9 @@ func Astar(maze Maze, start, end Position) []Position {
 			nodePosition := Position{currentNode.position[0] + delta[0], currentNode.position[1] + delta[1]}
 
 			// ensure the new position is in range
-			if nodePosition[0] > len(maze)-1 || nodePosition[0] < 0 || 
+			if nodePosition[0] > len(maze)-1 || nodePosition[0] < 0 ||
 				nodePosition[1] > len(maze[len(maze)-1])-1 || nodePosition[1] < 0 {
-				
+
 				continue
 			}
 
@@ -105,7 +103,7 @@ func Astar(maze Maze, start, end Position) []Position {
 			child.g = currentNode.g + 1
 			ax := child.position[0] - endNode.position[0]
 			ay := child.position[1] - endNode.position[1]
-			child.h = (ax*ax) + (ay*ay)
+			child.h = (ax * ax) + (ay * ay)
 			child.f = child.h + child.g
 
 			// child is already in the open list
