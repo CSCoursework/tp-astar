@@ -16,10 +16,12 @@ var (
 	colourSuccess    = color.RGBA{109, 191, 51, 0xff}
 	colourStart      = color.RGBA{51, 126, 191, 0xff}
 
-	cellWidth  = 10 // pixels
-	cellHeight = 10 // pixels
+	scale = 4
 
-	dividerWidth = 1 // pixels
+	cellWidth  = scale * 10 // pixels
+	cellHeight = scale * 10 // pixels
+
+	dividerWidth = scale * 1 // pixels
 )
 
 func calculateCellBoundaries(cellNumber, cellSize, borderSize int) (int, int) {
